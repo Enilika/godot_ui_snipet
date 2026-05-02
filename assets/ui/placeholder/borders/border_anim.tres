@@ -1,0 +1,19 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/ui/placeholder/borders/border_anim_0.svg" id="1_a"]
+[ext_resource type="Texture2D" path="res://assets/ui/placeholder/borders/border_anim_1.svg" id="2_b"]
+[ext_resource type="Texture2D" path="res://assets/ui/placeholder/borders/border_anim_2.svg" id="3_c"]
+[ext_resource type="Texture2D" path="res://assets/ui/placeholder/borders/border_anim_3.svg" id="4_d"]
+
+[resource]
+animations = [{
+"frames": [
+{"duration": 1.0, "texture": ExtResource("1_a")},
+{"duration": 1.0, "texture": ExtResource("2_b")},
+{"duration": 1.0, "texture": ExtResource("3_c")},
+{"duration": 1.0, "texture": ExtResource("4_d")}
+],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]

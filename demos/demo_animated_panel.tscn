@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://demos/demo_animated_panel.gd" id="1_demo"]
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/core/animated_panel.tscn" id="2_panel"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/backgrounds/bg_static.tres" id="3_bgs"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/backgrounds/bg_anim.tres" id="4_bga"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/borders/border_static.tres" id="5_bds"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/borders/border_anim.tres" id="6_bda"]
+
+[node name="DemoAnimatedPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_demo")
+bg_static = ExtResource("3_bgs")
+bg_anim = ExtResource("4_bga")
+border_static = ExtResource("5_bds")
+border_anim = ExtResource("6_bda")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 2
+text = "AnimatedPanel demo  -  toggle static / animated frames, drag sliders"
+
+[node name="PanelHolder" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 60.0
+offset_bottom = -260.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" parent="PanelHolder" instance=ExtResource("2_panel")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 220)
+layout_mode = 2
+background_frames = ExtResource("4_bga")
+border_frames = ExtResource("6_bda")
+
+[node name="Controls" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -240.0
+offset_right = -24.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="SizeRow" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="SizeLabel" type="Label" parent="Controls/SizeRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Panel size: 360 x 216"
+
+[node name="SizeSlider" type="HSlider" parent="Controls/SizeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 80.0
+max_value = 720.0
+step = 4.0
+value = 360.0
+
+[node name="BgMarginRow" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Controls/BgMarginRow"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Background patch margin"
+
+[node name="BgMarginSlider" type="HSlider" parent="Controls/BgMarginRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 32.0
+step = 1.0
+value = 16.0
+
+[node name="BorderMarginRow" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Controls/BorderMarginRow"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+text = "Border patch margin"
+
+[node name="BorderMarginSlider" type="HSlider" parent="Controls/BorderMarginRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.0
+max_value = 32.0
+step = 1.0
+value = 16.0
+
+[node name="ToggleRow" type="HBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="BgAnimToggle" type="CheckButton" parent="Controls/ToggleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Animated background"
+
+[node name="BorderAnimToggle" type="CheckButton" parent="Controls/ToggleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Animated border"
+
+[node name="PauseToggle" type="CheckButton" parent="Controls/ToggleRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pause"

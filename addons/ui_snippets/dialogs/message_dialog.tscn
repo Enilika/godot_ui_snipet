@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/dialogs/base_dialog.tscn" id="1_base"]
+[ext_resource type="Script" path="res://addons/ui_snippets/dialogs/message_dialog.gd" id="2_msg"]
+
+[node name="MessageDialog" instance=ExtResource("1_base")]
+script = ExtResource("2_msg")
+text = "Hello! This is a message dialog with a typewriter effect."

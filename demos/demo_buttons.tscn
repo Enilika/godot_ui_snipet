@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://demos/demo_buttons.gd" id="1_demo"]
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/buttons/animated_button.tscn" id="2_btn"]
+[ext_resource type="Script" path="res://addons/ui_snippets/buttons/icon_button.gd" id="3_iconbtn"]
+[ext_resource type="Script" path="res://addons/ui_snippets/buttons/toggle_button.gd" id="4_togglebtn"]
+[ext_resource type="Script" path="res://addons/ui_snippets/buttons/menu_button.gd" id="5_menu"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_idle.tres" id="6_idle"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_hover.tres" id="7_hover"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_press.tres" id="8_press"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_focus.tres" id="9_focus"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_disabled.tres" id="10_disabled"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="11_icon"]
+
+[node name="DemoButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_demo")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 48.0
+text = "Buttons demo - hover, click, focus (Tab), and toggle"
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 80.0
+offset_right = -32.0
+offset_bottom = 130.0
+theme_override_constants/separation = 16
+
+[node name="AnimatedBtn" parent="Row" instance=ExtResource("2_btn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+text = "Animated"
+
+[node name="IconBtn" type="Button" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 44)
+layout_mode = 2
+flat = true
+text = "    With Icon"
+script = ExtResource("3_iconbtn")
+frames_idle = ExtResource("6_idle")
+frames_hover = ExtResource("7_hover")
+frames_press = ExtResource("8_press")
+frames_focus = ExtResource("9_focus")
+frames_disabled = ExtResource("10_disabled")
+icon_texture = ExtResource("11_icon")
+icon_size = 24
+
+[node name="ToggleBtn" type="Button" parent="Row"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+flat = true
+toggle_mode = true
+text = "Toggle"
+script = ExtResource("4_togglebtn")
+frames_idle = ExtResource("6_idle")
+frames_hover = ExtResource("7_hover")
+frames_press = ExtResource("8_press")
+frames_focus = ExtResource("9_focus")
+frames_disabled = ExtResource("10_disabled")
+frames_off = ExtResource("6_idle")
+frames_on = ExtResource("9_focus")
+
+[node name="DisableToggle" type="CheckButton" parent="Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disable buttons"
+
+[node name="Status" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 150.0
+offset_right = -32.0
+offset_bottom = 190.0
+text = "Click a button..."
+
+[node name="MenuLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 32.0
+offset_top = 220.0
+offset_right = -32.0
+offset_bottom = 250.0
+text = "Menu (RPG-style cursor follows focus, navigate with up/down):"
+
+[node name="Menu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 0
+offset_left = 80.0
+offset_top = 260.0
+offset_right = 320.0
+offset_bottom = 530.0
+script = ExtResource("5_menu")

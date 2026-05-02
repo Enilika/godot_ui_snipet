@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://addons/ui_snippets/buttons/animated_button.gd" id="1_btn"]
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/core/animated_panel.tscn" id="2_panel"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_idle.tres" id="3_idle"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_hover.tres" id="4_hover"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_press.tres" id="5_press"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_focus.tres" id="6_focus"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_disabled.tres" id="7_disabled"]
+
+[node name="AnimatedButton" type="Button"]
+custom_minimum_size = Vector2(160, 44)
+flat = true
+text = "Button"
+script = ExtResource("1_btn")
+frames_idle = ExtResource("3_idle")
+frames_hover = ExtResource("4_hover")
+frames_press = ExtResource("5_press")
+frames_focus = ExtResource("6_focus")
+frames_disabled = ExtResource("7_disabled")
+
+[node name="Panel" parent="." index="0" instance=ExtResource("2_panel")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+custom_minimum_size = Vector2(0, 0)
+offset_right = 0.0
+offset_bottom = 0.0
+background_frames = ExtResource("3_idle")
+bg_patch_margin = 16
+border_patch_margin = 16
