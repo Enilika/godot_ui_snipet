@@ -121,7 +121,11 @@ UISnipToast.show_toast(self, "Saved!")
 
 ## Godot バージョン
 
-Godot 4.3 以上を想定（`config/features` に `4.3` を指定）。`@export var x: SpriteFrames` 形式の型付きエクスポート、`Tween` API、`@tool` のインスペクタプレビューに依存します。
+**Godot 4.6.2 で動作確認**（`project.godot` の `config/features` は `4.6`）。最低要件は 4.3 程度で動くはずですが、推奨は 4.6 系です。`@export var x: SpriteFrames` 形式の型付きエクスポート、`Tween` API、`@tool` のインスペクタプレビューに依存します。
+
+### 4.6 との互換性
+
+スクリプトは Godot 4.6 のシグナル変更（`AnimationPlayer.animation_finished` などの `String → StringName`）に対応済みです。`grab_focus()` / `has_focus()` の追加オプション引数は使っていない（後方互換）。`.tscn` の `load_steps` 属性はエディタで保存しなおすと 4.6 仕様（属性なし）に書き換えられます。
 
 ## ライセンス
 

@@ -13,7 +13,7 @@ config_version=5
 config/name="Godot UI Snippets"
 config/description="Reusable animated UI snippets (buttons, dialogs) for Godot 4.x. The addon lives under addons/ui_snippets/."
 run/main_scene="res://demos/main.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
