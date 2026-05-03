@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://addons/ui_snippets/lists/thumbnail_list.gd" id="1_list"]
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/core/animated_panel.tscn" id="2_panel"]
+[ext_resource type="PackedScene" path="res://addons/ui_snippets/buttons/animated_button.tscn" id="3_btn"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/backgrounds/bg_anim.tres" id="4_bg"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/borders/border_anim.tres" id="5_bd"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_idle.tres" id="6_idle"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_hover.tres" id="7_hover"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_focus.tres" id="8_focus"]
+[ext_resource type="SpriteFrames" path="res://assets/ui/placeholder/buttons/btn_press.tres" id="9_press"]
+
+[node name="ThumbnailList" type="Control"]
+custom_minimum_size = Vector2(560, 240)
+anchors_preset = 0
+offset_right = 560.0
+offset_bottom = 240.0
+focus_mode = 1
+script = ExtResource("1_list")
+background_frames = ExtResource("4_bg")
+border_frames = ExtResource("5_bd")
+item_idle_frames = ExtResource("6_idle")
+item_hover_frames = ExtResource("7_hover")
+item_focus_frames = ExtResource("8_focus")
+item_press_frames = ExtResource("9_press")
+
+[node name="Frame" parent="." instance=ExtResource("2_panel")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_minimum_size = Vector2(0, 0)
+offset_right = 0.0
+offset_bottom = 0.0
+background_frames = ExtResource("4_bg")
+border_frames = ExtResource("5_bd")
+
+[node name="Margin" type="MarginContainer" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 32
+
+[node name="Row" type="HBoxContainer" parent="Frame/Margin"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_constants/separation = 8
+
+[node name="PrevBtn" parent="Frame/Margin/Row" instance=ExtResource("3_btn")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "◀"
+
+[node name="Viewport" type="Control" parent="Frame/Margin/Row"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="Slots" type="HBoxContainer" parent="Frame/Margin/Row/Viewport"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_constants/separation = 8
+
+[node name="NextBtn" parent="Frame/Margin/Row" instance=ExtResource("3_btn")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "▶"
+
+[node name="PageIndicator" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -28.0
+offset_right = -16.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1 / 1"
+horizontal_alignment = 2
+
+[node name="Cursor" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 0
+mouse_filter = 2

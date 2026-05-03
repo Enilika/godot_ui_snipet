@@ -4,6 +4,7 @@ const DEMO_PANEL := "res://demos/demo_animated_panel.tscn"
 const DEMO_BUTTONS := "res://demos/demo_buttons.tscn"
 const DEMO_DIALOGS := "res://demos/demo_dialogs.tscn"
 const DEMO_TRANSITIONS := "res://demos/demo_transitions.tscn"
+const DEMO_LISTS := "res://demos/demo_lists.tscn"
 
 @onready var slot: Control = %Slot
 @onready var status: Label = %Status
@@ -15,6 +16,7 @@ func _ready() -> void:
 	%ButtonsBtn.pressed.connect(func(): _swap(DEMO_BUTTONS, "Buttons"))
 	%DialogsBtn.pressed.connect(func(): _swap(DEMO_DIALOGS, "Dialogs"))
 	%TransitionsBtn.pressed.connect(func(): _swap(DEMO_TRANSITIONS, "Transitions"))
+	%ListsBtn.pressed.connect(func(): _swap(DEMO_LISTS, "Lists"))
 	_swap(DEMO_PANEL, "AnimatedPanel")
 
 

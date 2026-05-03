@@ -36,6 +36,9 @@ addons/ui_snippets/
   transitions/
     scene_transition.gd / .tscn # Autoload シングルトン (UISnipSceneTransition)
     iris.gdshader               # 円形ワイプ用シェーダ
+  lists/
+    thumbnail_item.gd           # Resource (label / thumbnail / data)
+    thumbnail_list.gd / .tscn   # サムネイル付きページネーション式選択リスト
 assets/ui/
   theme/default_theme.tres      # フォント色などの最小テーマ
   placeholder/                  # 差し替え前提のサンプル SVG + SpriteFrames
@@ -146,6 +149,44 @@ await UISnipSceneTransition.transition_in(UISnipSceneTransition.Type.FADE)
 - `FRAMES` — `UISnipAnimatedPanel` をフルスクリーンで重ね、`SpriteFrames` の絵をアニメさせる。プロジェクトのテーマと統一した遷移にしたい場合に有効。`frames` プロパティで差し替え
 
 色やデフォルト時間は autoload インスタンスのインスペクタ（または起動時に `UISnipSceneTransition.color = ...` などで）変更できます。
+
+### サムネイル付きページネーション選択リスト
+
+`UISnipThumbnailList` は **サムネイル + ラベル**のタイルを **1 ページ N 件** ずつ表示し、マウスホイール / Prev・Next ボタン / `ui_page_up/down` でページ送りできるインライン選択ウィジェットです。フォーカス中のスロットには **カーソルが追従**します（RPG のキャラクター選択画面風）。
+
+```gdscript
+# 各アイテムは UISnipThumbnailItem Resource
+var item := UISnipThumbnailItem.new()
+item.label = "Sword"
+item.thumbnail = preload("res://art/sword.png")
+item.data = {"id": 1, "atk": 12}   # 任意メタデータ
+
+var list := preload("res://addons/ui_snippets/lists/thumbnail_list.tscn").instantiate()
+list.per_page = 3
+list.items = [item, ...]
+add_child(list)
+
+list.selection_changed.connect(func(idx, it): print("focus:", it.label))
+list.item_activated.connect(func(idx, it): print("activate:", it.label))
+list.page_changed.connect(func(page, total): pass)
+
+# プログラム操作
+list.next_page()
+list.go_to_page(2, true)        # animated=true でスライドアニメ
+list.focus_index(5)              # 該当アイテムのページへ移動 + フォーカス
+var current = list.get_focused()
+```
+
+主な `@export`:
+- `items: Array[UISnipThumbnailItem]`
+- `per_page: int (1..8)`
+- `item_min_size: Vector2`
+- `background_frames` / `border_frames` — フレーム本体の絵
+- `item_idle_frames` / `item_hover_frames` / `item_focus_frames` / `item_press_frames` — 各スロットの状態別 SpriteFrames
+- `cursor_frames: SpriteFrames` — 指定時はアニメーションカーソル、未指定なら `cursor_text`（既定 `▶`）の Label
+- `cursor_offset`, `cursor_follow_duration`, `page_slide_duration`
+
+入力: マウスホイール / Prev・Next ボタン / `ui_page_up` / `ui_page_down` でページ送り、矢印キーで同ページ内フォーカス移動、Enter またはクリックで `item_activated` 発火。最終ページの末尾は無効スロットがダミーで残ります。
 
 ## 画像差し替え
 
