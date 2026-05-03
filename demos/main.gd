@@ -3,6 +3,7 @@ extends Control
 const DEMO_PANEL := "res://demos/demo_animated_panel.tscn"
 const DEMO_BUTTONS := "res://demos/demo_buttons.tscn"
 const DEMO_DIALOGS := "res://demos/demo_dialogs.tscn"
+const DEMO_TRANSITIONS := "res://demos/demo_transitions.tscn"
 
 @onready var slot: Control = %Slot
 @onready var status: Label = %Status
@@ -13,6 +14,7 @@ func _ready() -> void:
 	%PanelBtn.pressed.connect(func(): _swap(DEMO_PANEL, "AnimatedPanel"))
 	%ButtonsBtn.pressed.connect(func(): _swap(DEMO_BUTTONS, "Buttons"))
 	%DialogsBtn.pressed.connect(func(): _swap(DEMO_DIALOGS, "Dialogs"))
+	%TransitionsBtn.pressed.connect(func(): _swap(DEMO_TRANSITIONS, "Transitions"))
 	_swap(DEMO_PANEL, "AnimatedPanel")
 
 

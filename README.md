@@ -33,6 +33,9 @@ addons/ui_snippets/
     input_dialog.*              # 1 行テキスト入力
     progress_dialog.*           # ProgressBar + 任意の Cancel
     toast.*                     # 自動消滅、軽量、非モーダル
+  transitions/
+    scene_transition.gd / .tscn # Autoload シングルトン (UISnipSceneTransition)
+    iris.gdshader               # 円形ワイプ用シェーダ
 assets/ui/
   theme/default_theme.tres      # フォント色などの最小テーマ
   placeholder/                  # 差し替え前提のサンプル SVG + SpriteFrames
@@ -108,6 +111,41 @@ UISnipToast.show_toast(self, "Saved!")
 - `close_on_backdrop`: 背景クリックで閉じるか
 - `close_on_esc`: ESC で閉じるか
 - 開閉アニメは `Root/AnimationPlayer` に `open` / `close` を追加すれば優先される。空なら `UISnipAnimator.pop_in / pop_out` がフォールバック
+
+### Scene Transitions
+
+`addons/ui_snippets/transitions/scene_transition.tscn` は **autoload シングルトン**として `UISnipSceneTransition` の名前で登録されています（`project.godot` の `[autoload]` 参照）。`CanvasLayer.layer = 100` で常に最前面に乗り、シーン切替を覆い隠すアニメーションを担当します。
+
+```gdscript
+# 7 種類のトランジション
+enum Type { FADE, SLIDE_LEFT, SLIDE_RIGHT, SLIDE_UP, SLIDE_DOWN, IRIS, FRAMES }
+
+# 別シーンへ遷移
+await UISnipSceneTransition.change_scene_to_file("res://next.tscn",
+    UISnipSceneTransition.Type.FADE, 0.4)
+
+# PackedScene 版
+await UISnipSceneTransition.change_scene_to_packed(packed,
+    UISnipSceneTransition.Type.IRIS, 0.5)
+
+# in-place: host の子供を入れ替えるだけ (実際にシーン遷移はしない)
+await UISnipSceneTransition.swap_subscene(slot,
+    func(): return packed.instantiate(),
+    UISnipSceneTransition.Type.SLIDE_LEFT, 0.4)
+
+# 個別フェーズ呼び出し (任意処理を間に挟みたい場合)
+await UISnipSceneTransition.transition_out(UISnipSceneTransition.Type.FADE)
+do_something()
+await UISnipSceneTransition.transition_in(UISnipSceneTransition.Type.FADE)
+```
+
+トランジション種類:
+- `FADE` — `color`（既定: 黒）でフェードイン／アウト
+- `SLIDE_LEFT/RIGHT/UP/DOWN` — 方向にスライドして覆い、続けてその方向に抜ける
+- `IRIS` — `iris.gdshader` による円形ワイプ（アスペクト補正済み）。色は `color` プロパティ
+- `FRAMES` — `UISnipAnimatedPanel` をフルスクリーンで重ね、`SpriteFrames` の絵をアニメさせる。プロジェクトのテーマと統一した遷移にしたい場合に有効。`frames` プロパティで差し替え
+
+色やデフォルト時間は autoload インスタンスのインスペクタ（または起動時に `UISnipSceneTransition.color = ...` などで）変更できます。
 
 ## 画像差し替え
 
